@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members Only</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-primary">Members Only</h1>
+            <% if (isAuthenticated) { %>
+                <div>
+                    <span>Welcome <%= currentUser.firstName %> (<%= currentUser.email %>)</span>
+                    <a href="/log-out" class="btn btn-danger ml-2">Log Out</a>
+                </div>
+                <% } else { %>
+                    <div>
+                        <a href="/sign-up" class="btn btn-primary mr-2">Sign Up</a>
+                        <a href="/login" class="btn btn-success">Sign In</a>
+                    </div>
+                    <% } %>
+        </div>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+            <div class="container">
+                <!-- Navbar brand with inline CSS for font size -->
+                <span class="navbar-brand mx-auto" style="font-size: 5em;">Messages</span>
+            </div>
+        </nav>
+
+
+        <!-- Messages -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <!-- Sample message -->
+                <div class="message">
+                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce feugiat turpis vitae
+                        dui iaculis, at fringilla sem pretium.</p>
+                    <small class="text-muted">User123</small>
+                </div>
+                <!-- Add more messages dynamically here -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
