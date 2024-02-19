@@ -5,7 +5,15 @@
   <meta charset="UTF-8">
   <title>Sign Up</title>
   <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <head>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include Bootstrap JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+
 </head>
 
 <body>
@@ -21,8 +29,9 @@
         <input name="lastName" id="lastName" class="form-control" placeholder="Last Name" type="text" required>
       </div>
       <div class="form-group">
-        <label for="email">Email</label>
-        <input name="email" id="email" class="form-control" placeholder="Email" type="email" required>
+        <label for="username">Username</label>
+        <input name="username" placeholder="johndoe" type="text" <%=typeof username !=='undefined' ? `value=${username}` : ''
+          %> minlength="1" required/>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
@@ -34,38 +43,23 @@
       </div>
       <button type="submit" class="btn btn-primary">Sign Up</button>
     </form>
+  <%if (typeof errors !=='undefined' ) {%>
+    <div class="sign-up-errors">
+      <% errors.forEach(error=> { %>
+        <p>
+          <%= error.msg %>
+        </p>
+        <% }) %>
+    </div>
+    <% } %>
+  
+  
   </div>
 
   <!-- Bootstrap JS (optional) -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  <script>
-    // Get form and password fields
-    const form = document.getElementById('signupForm');
-    const passwordField = document.getElementById('password');
-    const confirmPasswordField = document.getElementById('confirmPassword');
-
-    // Function to check if passwords match
-    function validatePassword() {
-      if (passwordField.value !== confirmPasswordField.value) {
-        confirmPasswordField.setCustomValidity('Passwords do not match');
-      } else {
-        confirmPasswordField.setCustomValidity('');
-      }
-    }
-
-    // Add event listeners to password fields
-    passwordField.addEventListener('input', validatePassword);
-    confirmPasswordField.addEventListener('input', validatePassword);
-
-    // Prevent form submission if passwords do not match
-    form.addEventListener('submit', function (event) {
-      if (passwordField.value !== confirmPasswordField.value) {
-        event.preventDefault();
-        alert('Passwords do not match');
-      }
-    });
-  </script>
+ 
 </body>
 
 </html>

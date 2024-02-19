@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-5">Membership</h1>
+        <form action="/membership" method="POST" class="mt-3">
+            <div class="form-group">
+                <label for="secretCode">Enter Secret Code</label>
+                <input type="text"
+                    placeholder="Get MemberShip Status by Typing 12345 and you will see who posted messages and when. You could try and guess for admins."
+                    class="form-control" id="secretCode" name="secretCode" required>
+            </div>
+            <% if (locals.error) { %>
+                <div class="alert alert-danger mt-2" role="alert">
+                    <%= locals.error %>
+                </div>
+                <% } %>
+            <button type="submit" class="btn btn-primary">Join Club</button>
+        </form>
+
+
+
+                <a href="/" class="btn btn-outline-secondary mt-3">Go back to main page</a>
+    </div>
+</body>
+
+</html>

@@ -5,48 +5,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Members Only</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <head>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+        <!-- Include jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- Include Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <!-- Include Bootstrap JavaScript -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </head>
+
 </head>
 
 <body>
     <div class="container mt-4">
         <!-- Header -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="text-primary">Members Only</h1>
-            <% if (isAuthenticated) { %>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-primary">Members Only</h1>
+        <% if (currentUser) { %>
+            <a href="/membership" class="btn btn-success ml-2">Get MemberShip Status</a>
+            <a href="/log-out" class="btn btn-danger ml-2">Log Out</a>
+            
+            <% } else { %>
                 <div>
-                    <span>Welcome <%= currentUser.firstName %> (<%= currentUser.email %>)</span>
-                    <a href="/log-out" class="btn btn-danger ml-2">Log Out</a>
+                    <a href="/sign-up" class="btn btn-primary mr-2">Sign Up</a>
+                    <a href="/log-in" class="btn btn-success">Sign In</a>
                 </div>
-                <% } else { %>
-                    <div>
-                        <a href="/sign-up" class="btn btn-primary mr-2">Sign Up</a>
-                        <a href="/login" class="btn btn-success">Sign In</a>
-                    </div>
-                    <% } %>
+                <% } %>
+    </div>
+    <!-- Welcome message -->
+    <% if (currentUser) { %>
+        <div class="d-flex mb-4 align-items-center">
+            <h4 class="font-size-large mr-3">Welcome <%= currentUser.firstName %> (<span class="text-primary">
+                        <%= currentUser.username %>
+                    </span>)</h4>
+            <p class="font-size-large mr-2 mt-3">Membership Status:</p>
+            <div class="circle <%= currentUser.isMember ? 'green' : 'red' %>"></div> <!-- Membership Status circle -->
+            <p class="font-size-large mr-2 mt-3 ml-4">Admin Status:</p>
+            <div class="circle <%= currentUser.isAdmin ? 'green' : 'red' %>"></div> <!-- Admin Status circle -->
+            <!-- Link to create a new message -->
+            <a href="/new-message" class="btn btn-primary ml-auto">Create a new message</a>
         </div>
+        <% } %>
+
+
+
+
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
             <div class="container">
                 <!-- Navbar brand with inline CSS for font size -->
-                <span class="navbar-brand mx-auto" style="font-size: 5em;">Messages</span>
+                <span class="navbar-brand mx-auto text-primary" style="font-size: 5em; ">Messages</span>
             </div>
         </nav>
 
 
         <!-- Messages -->
-        <div class="card mb-4">
+        <div class="cardd mb-4">
             <div class="card-body">
                 <!-- Sample message -->
-                <div class="message">
-                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce feugiat turpis vitae
-                        dui iaculis, at fringilla sem pretium.</p>
-                    <small class="text-muted">User123</small>
-                </div>
+                
                 <!-- Add more messages dynamically here -->
-            </div>
-        </div>
-    </div>
+                <% messages.forEach(message=> { %>
+                    <div class="message mb-4 pb-3">
+                        <h4 class="text-primary ">
+                            <%= message.title %>
+                        </h4>
+                        <p>
+                            <%= message.content %>
+                        </p>
+                        <% if (currentUser && currentUser.isMember) { %>
+                            <small class="mt-2 username">
+                                <%= message.createdBy.username %>
+                            </small>
+                            <small class="ml-3">
+                                <%= message.createdAt %>
+                            </small>
+                            <% } else { %>
+                                <small class="mt-2">Anonymous</small>
+                                <% } %>
+                                <% if (currentUser && currentUser.isAdmin) { %>
+                                    <div class="ml-auto mt-3">
+                                        
+                                        <form action="/delete-message/<%= message._id %>" method="POST" style="display: inline;">
+                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                    <% } %>
+                    </div>
+                    <% }) %>
+  </div>
+ </div>
+   
+
+</div>
 </body>
 
 </html>
