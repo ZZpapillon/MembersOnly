@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 const express = require('express');
 
 
@@ -22,7 +22,7 @@ const User = require('./models/User');
 const indexRouter = require('./controllers/authController');
 
 
-const mongoDb = process.env.DB_URL;
+const mongoDb = "mongodb+srv://zdes:zdeslav@cluster0.abxta9f.mongodb.net/Users0?retryWrites=true&w=majority";
 mongoose.connect(mongoDb);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'mongo connection error'));
@@ -87,7 +87,7 @@ const sessionStore = new MongoStore({
 
 app.use(
 	session({
-		secret: process.env.SECRET,
+		secret: e0efdfb72eaea8f482de81ce04719cca12ccc61d97f0c315160a891404dfeadb,
 		resave: false,
 		saveUninitialized: true,
 		store: sessionStore,

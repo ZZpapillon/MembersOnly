@@ -6,7 +6,7 @@ const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
 const Message = require('../models/message');
 const { DateTime } = require('luxon');
-require('dotenv').config();
+// require('dotenv').config();
 // Route for rendering the home page
 // Route for handling the home page after successful login
 // Route for rendering the home page
@@ -154,7 +154,7 @@ router.get('/membership', (req, res, next) => {
 router.post('/membership', async (req, res) => {
     const { secretCode } = req.body;
     const expectedCode = '12345'; // Expected secret code
-    const adminCode = process.env.SECRET_KEY;
+    const adminCode = '12345admin';
 
     if (secretCode === expectedCode) {
         // Update user's membership status in the database
