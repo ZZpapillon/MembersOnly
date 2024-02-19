@@ -87,7 +87,7 @@ const sessionStore = new MongoStore({
 
 app.use(
 	session({
-		secret: e0efdfb72eaea8f482de81ce04719cca12ccc61d97f0c315160a891404dfeadb,
+		secret: 'e0efdfb72eaea8f482de81ce04719cca12ccc61d97f0c315160a891404dfeadb',
 		resave: false,
 		saveUninitialized: true,
 		store: sessionStore,
